@@ -1,5 +1,4 @@
-Hyperparameter_Tuning_Data_Science_MMF_2025
-
+# Hyperparameter Tuning
 ## 1. What is Hyperparameter Tuning?
 
 ### Definition of Hyperparameter Tuning:
