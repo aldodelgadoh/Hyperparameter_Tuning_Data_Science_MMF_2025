@@ -1,7 +1,5 @@
 # 1. What is Hyperparameter Tuning?
 
-# 1. What is Hyperparameter Tuning?
-
 ### Definition of Hyperparameter Tuning:
 Hyperparameter tuning is the process of selecting the optimal configuration of hyperparameters that allow a machine learning model to perform at its best. Since hyperparameters are settings that are not learned during training but are set before the training process, tuning involves experimenting with different values to find the combination that optimizes the model’s performance.
 
