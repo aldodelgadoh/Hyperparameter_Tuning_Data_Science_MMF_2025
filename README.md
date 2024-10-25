@@ -20,26 +20,24 @@ Hyperparameters control critical aspects of how a model learns from data. Choosi
 
 Correctly choosing hyperparameters is crucial because they significantly affect how well the model generalizes to unseen data, preventing issues like underfitting or overfitting.
 
+### When is Hyperparameter Tuning Done?
+Hyperparameter tuning is typically performed after the initial model is built, during the validation phase. Once the model architecture is decided, tuning can improve the model’s performance on a validation set, helping ensure it generalizes well to new data.
+
+### How is Hyperparameter Tuning Done?
+Several methods are commonly used to tune hyperparameters:
+- **Grid Search**: An exhaustive search over a predefined range of hyperparameters.
+- **Random Search**: Randomly sampling from a range of hyperparameters, which is often faster than grid search.
+- **Bayesian Optimization**: A more advanced method that models the hyperparameter space probabilistically to find the best settings with fewer evaluations.
+
 ### Examples of Hyperparameters in Common Algorithms:
 
-1. **Neural Networks**:
-   - Learning rate
-   - Batch size
-   - Number of hidden layers
-   - Dropout rate (to avoid overfitting)
-
-2. **Decision Trees**:
-   - Maximum depth (controls overfitting)
-   - Minimum number of samples for a split
-   - Minimum samples per leaf
-
-3. **Support Vector Machines (SVM)**:
-   - Kernel type (linear, polynomial, RBF)
-   - Regularization parameter (C)
-   - Gamma (for RBF kernel)
+| **Algorithm**            | **Hyperparameters**                                                                 |
+|--------------------------|-------------------------------------------------------------------------------------|
+| **Neural Networks**       | - Learning rate<br>- Batch size<br>- Number of hidden layers<br>- Dropout rate      |
+| **Decision Trees**        | - Maximum depth<br>- Minimum samples per split<br>- Minimum samples per leaf        |
+| **Support Vector Machines (SVM)** | - Kernel type (linear, polynomial, RBF)<br>- Regularization parameter (C)<br>- Gamma (for RBF kernel) |
 
 By effectively tuning hyperparameters, you can balance model complexity and performance, improving predictive power while avoiding overfitting or underfitting.
-
 
 
 ---
