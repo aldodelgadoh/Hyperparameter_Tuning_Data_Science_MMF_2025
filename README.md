@@ -1,9 +1,9 @@
 # Hyperparameter Tuning
 
 By:
--Aviel Avshalumov
--Ali Ghaziasgar
--Aldo Delgado
+- **Aviel Avshalumov**
+- **Ali Ghaziasgar**
+- **Aldo Delgado**
 
 ## 1. What is Hyperparameter Tuning?
 
