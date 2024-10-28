@@ -175,7 +175,7 @@ Hyperparameters: Number of Layers, Number of Neurons per Layer, Learning Rate.
     - Bad Outcomes (configurations that did poor)
     - Choose the next combination based on the two distributions (adapting based on prior evaluations).
   - Explore (3 layers, 64 neurons, 0.001) when we had below initial results
-    - (2 layers, 128 neurons, 0.01); Performance: 0.90 (considered as good performance based on EI)
+    - (2 layers, 128 neurons, 0.01); Performance: 0.90 (considered as good performance based on for example 0.85 threshold)
     - (2 layers, 64 neurons, 0.001); Performance: 0.85
     - (1 layer, 128 neurons, 0.01); Performance: 0.82
     - ...
