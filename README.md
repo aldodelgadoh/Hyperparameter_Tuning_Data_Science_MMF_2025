@@ -84,7 +84,7 @@ Balancing hyperparameters can optimize resource use, allowing models to be train
 Bayesian Optimization builds a probabilistic model (usually a Gaussian process) of the objective function and uses this model to choose hyperparameter values intelligently. This method strikes a balance between **exploration** (trying new values) and **exploitation** (focusing on the best-performing values).
 
 ### How Bayesian Optimization Works:
-1. **Surrogate Model**: A probabilistic surrogate model approximates the objective function based on past evaluations.
+1. **Surrogate Model**: A probabilistic surrogate model approximates the objective function based on past evaluations (e.g.  Gaussian Processes, Random Forests).
 2. **Acquisition Function**: Determines the next hyperparameter set to evaluate by balancing exploration and exploitation. Common acquisition functions include **Expected Improvement** and **Upper Confidence Bound**.
 3. **Iterative Process**: The model evaluates new hyperparameters, updates the surrogate model, and repeats the process until convergence or the evaluation limit is reached.
 
@@ -125,11 +125,13 @@ For deep learning models like neural networks, Bayesian optimization can efficie
 
 ### 4) TPE Estimator (Tree-structured Parzen Estimator)
 - A sequential model-based optimization (SMBO) approach that models the probability of good and bad outcomes.
-  - A form of Bayesian optimization method; a probabilistic model.
-  - Models distribution of hyperparameters: one distribution models the hyperparameter values that are associated with the best results and the other models the remaining hyperparameter values.      
+  - A specific form of Bayesian optimization method (a probabilistic model) based on Parzen density estimation.
+  - Models distribution of hyperparameters: one distribution models the hyperparameter values that are associated with the best results and the other models the remaining hyperparameter values (uses two separate density functions).      
   - Uses an objective function (accuracy, loss, etc.).
 - Estimates expected improvement to existing combinations for each possible set.
 - For complex models, it will need to have more evaluations to better predict the performance of hyperparameters.
+- Compared to different surrogate models under Bayesian, TPE uses a tree structure that makes it possible to model dependencies between hyperparameters.
+  - Can be more efficient than Bayesian optimization in high-dimensional spaces with conditional parameters, since it models 2 distributions, providing more focused search based on past evaluations.  
 
 #### Financial ML Applications:
 - Used for sophisticated ML-based trading strategies, real-time hyperparameter changes, factor selection, risk model optimization, and modeling changes in market regime.
@@ -142,7 +144,7 @@ For deep learning models like neural networks, Bayesian optimization can efficie
 |-----------------------|----------------------------------------------------------------------------------------|------------------------------------------------------------------|--------------------------------------------|
 | **Grid Search**       | - Simple to understand<br>- All combinations are tested<br>- Finds the best combination in the provided list<br>- Deterministic (reproducible results) | - Extensive computations for large datasets<br>- Not suitable for complex models<br>- Ignores importance of different hyperparameters | - Exponential complexity; Number of combinations grows exponentially<br>- O(n^d) where n is the number of values per hyperparameter, d is the number of hyperparameters |
 | **Random Search**     | - Fewer computations than Grid Search<br>- More efficient for a high number of hyperparameters | - May not find the optimal combination of hyperparameters<br>- Not reproducible results | - Linear complexity; Linear growth of combinations<br>- Faster than Grid Search<br>- O(k) where k is the number of iterations |
-| **TPE**               | - Fewer calculations than Random Search<br>- Adaptive search based on expected improvement<br>- Faster for complex models and high number of hyperparameters<br>- Works well with conditional parameters<br>- Usually finds good solutions with fewer iterations. | - More complex to implement<br>- Requires sufficient prior tests on different hyperparameters (initial random exploration)<br>- May not find the global optima<br>- May overfit | - Log-linear complexity<br>- O(k * log(k)) where k is the number of iterations<br>- Exploration strategy based on the expected improvement probability<br>- Faster than Random Search |
+| **TPE**               | - Fewer calculations than Random Search<br>- Adaptive search based on expected improvement<br>- Faster for complex models and high number of hyperparameters<br>- Works well with conditional parameters (dependent hyperparameters)<br>- Usually finds good solutions with fewer iterations. | - More complex to implement<br>- Requires sufficient prior tests on different hyperparameters (initial random exploration)<br>- May not find the global optima<br>- May overfit | - Log-linear complexity<br>- O(k * log(k)) where k is the number of iterations<br>- Exploration strategy based on the expected improvement probability<br>- Faster than Random Search |
 
 ---
 
@@ -151,3 +153,31 @@ Other factors that affect the speed include:
 - The cost of evaluating each configuration
 - The dimensionality of the search space
 - Implementation details
+
+## Example: Tuning hyperparameters for a neural network
+Hyperparameters: Number of Layers, Number of Neurons per Layer, Learning Rate.
+- Grid Search
+  - We define a grid of hyperparameter values
+  - Number of Layers: [1, 2, 3], Number of Neurons per Layer: [64, 128, 256], Learning Rate: [0.005, 0.01, 0.1]
+  - Create all possible combinations (3x3x3 = 27 combinations).
+- Random Search
+  - Instead of evaluating all combinations, randomly sample a fixed number of random combinations.
+- Bayesian Optimization
+  - Surrogate Model (Gaussian Process), initial random evaluations (e.g. 10 random combinations first), acquisition function (Expected Improvement).
+  - We use the Gaussian Process to predict the performance of untested hyperparameter configurations.
+  - Select the next hyperparameters based on Expected Improvement.
+  - Update the surrogate model with evaluation results and repeat the process.
+  - The Gaussian Process predicts (5 layers, 128 neurons, 0.001) has high potential. We evaluate (5 layers, 128 neurons, 0.001), and update the model with results. We continue to refine choices based on predictions.
+- TPE (Tree-structured Parzen Estimator)
+  - Model the distribution of good and bad hyperparameter values using density estimators (Parzen estimators).
+  - Create two distributions out Of the 10 initial random combinations
+    - Good Outcomes (configurations that did well)
+    - Bad Outcomes (configurations that did poor)
+    - Choose the next combination based on the two distributions (adapting based on prior evaluations).
+  - Explore (3 layers, 64 neurons, 0.001) when we had below initial results
+    - (2 layers, 128 neurons, 0.01); Performance: 0.90 (considered as good performance based on EI)
+    - (2 layers, 64 neurons, 0.001); Performance: 0.85
+    - (1 layer, 128 neurons, 0.01); Performance: 0.82
+    - ...
+    - (3 layers, 256 neurons, 0.1); Performance: 0.75
+    - Focusing on untested combinations, increasing layers from 2 to 3 (to learn complex patterns), lower neurons (to reduce overfitting, focus on essential features), lower learning rate (for more stable training, better convergence). The next configuration is compared to best-known configuration. 
