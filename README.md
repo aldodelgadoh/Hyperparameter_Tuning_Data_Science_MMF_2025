@@ -75,27 +75,12 @@ Hyperparameter tuning also impacts the computational efficiency of a model. Cert
 Balancing hyperparameters can optimize resource use, allowing models to be trained efficiently without sacrificing performance.
 
 
-## 3. Bayesian Optimization for Hyperparameter Tuning
-
-### TPE Estimator:
-The **Tree-structured Parzen Estimator (TPE)** is a specific variant of Bayesian optimization used in hyperparameter tuning. Instead of using Gaussian processes like traditional Bayesian optimization, TPE models the likelihood of a hyperparameter configuration being optimal by dividing the results into two distributions:
-1. One distribution models the hyperparameter values that are associated with the best results.
-2. The other distribution models the remaining hyperparameter values.
-
-TPE focuses on the hyperparameters likely to yield better results, making it a more efficient and flexible choice for hyperparameter optimization, especially for high-dimensional hyperparameter spaces.
-
-### Pros and Cons of TPE:
-#### Pros:
-- **Efficiency**: Like Bayesian optimization, TPE requires fewer evaluations compared to traditional grid or random search, making it faster to find optimal hyperparameter values.
-- **Scalability**: TPE scales better for higher-dimensional hyperparameter spaces and can work effectively with complex hyperparameter configurations.
-
-#### Cons:
-- **Complexity**: TPE introduces more complexity than simpler methods such as grid or random search.
-- **Requires Proper Configuration**: While TPE is flexible, it requires careful configuration and can be slow if not properly tuned, particularly in cases with a very large search space.
+## 3. Four Common Methods for Hyperparameter Tuning
 
 ---
 
-### Bayesian Optimization Overview:
+### 1) Bayesian Optimization 
+### Overview:
 Bayesian Optimization builds a probabilistic model (usually a Gaussian process) of the objective function and uses this model to choose hyperparameter values intelligently. This method strikes a balance between **exploration** (trying new values) and **exploitation** (focusing on the best-performing values).
 
 ### How Bayesian Optimization Works:
@@ -117,41 +102,36 @@ For deep learning models like neural networks, Bayesian optimization can efficie
 
 ---
 
-### You can continue here :)
 
-# Hyperparameter Optimization Methods
-
-## Grid Search
-- **Description**: Searches through a predefined list of hyperparameters to find the best combination.
+### 2) Grid Search
+- Searches through a predefined list of hyperparameters to find the best combination.
 - **Suitability**: Suitable for a small number of hyperparameters.
-- **Example**: For 3 hyperparameters with 4 values each, the total combinations are \(4 \times 4 \times 4 = 64\).
+- **Example**: For 3 hyperparameters with 4 values each, the total combinations are \(4 x 4 x 4 = 64\).
 
-### Financial ML Applications:
+#### Financial ML Applications:
 - Used for basic trading strategies, backtesting specific parameter ranges.
 - Easier to understand; used in risk management and regulatory compliance.
 
 ---
 
-## Random Search
-- **Description**: Searches random combinations of hyperparameters.
+### 3) Random Search
+- Searches random combinations of hyperparameters.
 - **Suitability**: Recommended for large parameter spaces due to its efficiency.
 
-### Financial ML Applications:
+#### Financial ML Applications:
 - Used in factor model optimization, portfolio weight optimization (modern portfolio optimization), daily rebalancing.
 
 ---
 
-## TPE Estimator (Tree-structured Parzen Estimator)
-- **Description**: A sequential model-based optimization (SMBO) approach that models the probability of good and bad outcomes.
+### 4) TPE Estimator (Tree-structured Parzen Estimator)
+- A sequential model-based optimization (SMBO) approach that models the probability of good and bad outcomes.
   - A form of Bayesian optimization method; a probabilistic model.
-  - Models distribution of hyperparameters (e.g. Gaussian).
+  - Models distribution of hyperparameters: one distribution models the hyperparameter values that are associated with the best results and the other models the remaining hyperparameter values.      
   - Uses an objective function (accuracy, loss, etc.).
-
-### Functionality:
 - Estimates expected improvement to existing combinations for each possible set.
 - For complex models, it will need to have more evaluations to better predict the performance of hyperparameters.
 
-### Financial ML Applications:
+#### Financial ML Applications:
 - Used for sophisticated ML-based trading strategies, real-time hyperparameter changes, factor selection, risk model optimization, and modeling changes in market regime.
 
 ---
