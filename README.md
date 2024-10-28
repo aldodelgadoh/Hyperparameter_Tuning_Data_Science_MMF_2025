@@ -118,4 +118,57 @@ For deep learning models like neural networks, Bayesian optimization can efficie
 ---
 
 ### You can continue here :)
-#GA
+
+# Hyperparameter Optimization Methods
+
+## Grid Search
+- **Description**: Searches through a predefined list of hyperparameters to find the best combination.
+- **Suitability**: Suitable for a small number of hyperparameters.
+- **Example**: For 3 hyperparameters with 4 values each, the total combinations are \(4 \times 4 \times 4 = 64\).
+  
+### Financial ML Applications:
+- Used for basic trading strategies and backtesting specific parameter ranges.
+- Easier to understand; utilized in risk management and regulatory compliance.
+
+---
+
+## Random Search
+- **Description**: Searches random combinations of hyperparameters.
+- **Suitability**: Recommended for large parameter spaces due to its efficiency.
+
+### Financial ML Applications:
+- Used in factor model optimization, portfolio weight optimization (modern portfolio optimization), and daily rebalancing.
+
+---
+
+## TPE Estimator (Tree-structured Parzen Estimator)
+- **Description**: A sequential model-based optimization (SMBO) approach that models the probability of good and bad outcomes.
+  - A form of Bayesian optimization; uses a probabilistic model.
+  - Models the distribution of hyperparameters (e.g., Gaussian).
+  - Utilizes an objective function (accuracy, loss, etc.).
+  
+### Functionality:
+- Estimates expected improvement over existing combinations for each possible set.
+- Requires more evaluations for complex models to better predict hyperparameter performance.
+
+### Financial ML Applications:
+- Used for sophisticated ML-based trading strategies, real-time hyperparameter changes, factor selection, risk model optimization, and modeling changes in market regimes.
+
+---
+
+## Comparison of Hyperparameter Optimization Methods
+
+| Hyperparameter Method | Pros                                                                                   | Cons                                                             | On Level                                   |
+|-----------------------|----------------------------------------------------------------------------------------|------------------------------------------------------------------|--------------------------------------------|
+| **Grid Search**       | - Simple to understand<br>- Tests all combinations<br>- Finds the best combination<br>- Deterministic (reproducible results) | - Extensive computations for large datasets<br>- Not suitable for complex models<br>- Ignores importance of different hyperparameters | - Exponential complexity: O(n^d)<br>  where n = number of values per hyperparameter, d = number of hyperparameters |
+| **Random Search**     | - Fewer computations than Grid Search<br>- More efficient for high number of hyperparameters | - May not find the optimal combination<br>- Not reproducible results | - Linear complexity: O(k)<br> where k = number of iterations |
+| **TPE**               | - Fewer calculations than Random Search<br>- Adaptive search based on expected improvement<br>- Faster for complex models<br>- Works well with conditional parameters<br>- Usually finds good solutions with fewer iterations. | - More complex to implement<br>- Requires sufficient prior tests on different hyperparameters<br>- May not find the global optima<br>- May overfit | - Log-linear complexity: O(k * log(k))<br> where k = number of iterations<br>- Exploration strategy based on expected improvement probability |
+
+---
+
+## Additional Factors Affecting Speed
+Other factors that affect the speed include:
+- Cost of evaluating each configuration
+- Dimensionality of the search space
+- Implementation details
+
