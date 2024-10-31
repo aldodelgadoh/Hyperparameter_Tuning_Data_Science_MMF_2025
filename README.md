@@ -53,10 +53,7 @@ By effectively tuning hyperparameters, you can balance model complexity and perf
 
 ### Optimization of Model Performance:
 
-Tuning hyperparameters is critical for optimizing a model’s performance. The proper combination of hyperparameters can improve both accuracy and generalization ability, allowing the model to make reliable predictions on unseen data. For example, a well-tuned model can avoid common issues like:
-
-- **Overfitting**: The model is too complex (e.g., too many layers or a low regularization penalty), learning the noise in the training data instead of the underlying patterns. 
-- **Underfitting**: The model is too simple (e.g., shallow decision trees or an insufficient number of hidden layers), failing to capture important patterns in the data. 
+Tuning hyperparameters is critical for optimizing a model’s performance. The proper combination of hyperparameters can improve both accuracy and generalization ability, allowing the model to make reliable predictions on unseen data.
 
 ### Avoiding Overfitting/Underfitting:
 
