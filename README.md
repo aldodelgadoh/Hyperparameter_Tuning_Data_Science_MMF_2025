@@ -64,11 +64,7 @@ Effective hyperparameter tuning helps avoid these extremes by ensuring a model i
 
 ### Efficiency and Resource Management:
 
-Hyperparameter tuning also impacts the computational efficiency of a model. Certain hyperparameters, such as batch size or model complexity, can directly affect the time and memory requirements during training. For instance: 
-
-- A very small batch size may lead to faster convergence but higher memory usage. 
-- A very large decision tree may take longer to train and require more memory. 
-
+Hyperparameter tuning also impacts the computational efficiency of a model. Certain hyperparameters, such as batch size or model complexity, can directly affect the time and memory requirements during training. 
 Balancing hyperparameters can optimize resource use, allowing models to be trained efficiently without sacrificing performance.
 
 
